@@ -10,14 +10,11 @@ namespace DAL
         static void Main(string[] args)
         {
             var builder = new ConfigurationBuilder();
-            // установка пути к текущему каталогу
             builder.SetBasePath(Directory.GetCurrentDirectory());
-            // получаем конфигурацию из файла appsettings.json
             builder.AddJsonFile("appsettings.json");
-            // создаем конфигурацию
             var config = builder.Build();
-            // получаем строку подключения
-            string connectionString = config.GetConnectionString("DefaultConnection");
+
+            string connectionString = config.GetConnectionString("LearningLanguages");
 
             var optionsBuilder = new DbContextOptionsBuilder<LearningLanguagesContext>();
             var options = optionsBuilder
@@ -28,6 +25,7 @@ namespace DAL
             {
                
             }
+
             Console.ReadKey();
         }
     }
