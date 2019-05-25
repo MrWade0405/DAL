@@ -4,8 +4,15 @@ using System.Text;
 
 namespace DAL.Implementations
 {
-    class CategoriesRepository : IRepository<Categories>
+    public class CategoriesRepository : IRepository<Categories>
     {
+        private LearningLanguagesContext db;
+
+        public CategoriesRepository()
+        {
+            this.db = new LearningLanguagesContext();
+        }
+
         public void Create(Categories item)
         {
             throw new NotImplementedException();
@@ -16,29 +23,44 @@ namespace DAL.Implementations
             throw new NotImplementedException();
         }
 
-        public void Dispose()
-        {
-            throw new NotImplementedException();
-        }
-
         public Categories GetItem(int id)
         {
-            throw new NotImplementedException();
+            return db.Categories.Find(id);
         }
 
         public IEnumerable<Categories> GetList()
         {
-            throw new NotImplementedException();
+            return db.Categories;
         }
 
         public void Save()
         {
-            throw new NotImplementedException();
+            db.SaveChanges();
         }
 
         public void Update(Categories item)
         {
             throw new NotImplementedException();
+        }
+
+        private bool disposed = false;
+
+        public virtual void Dispose(bool disposing)
+        {
+            if (!this.disposed)
+            {
+                if (disposing)
+                {
+                    db.Dispose();
+                }
+            }
+            this.disposed = true;
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 }

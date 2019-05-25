@@ -4,8 +4,10 @@ using System.Text;
 
 namespace DAL.Repositories
 {
-    class TotalScoresRepository : IRepository<TotalScores>
+    public class TotalScoresRepository : IRepository<TotalScores>
     {
+        private LearningLanguagesContext db;
+
         public void Create(TotalScores item)
         {
             throw new NotImplementedException();
@@ -16,29 +18,44 @@ namespace DAL.Repositories
             throw new NotImplementedException();
         }
 
-        public void Dispose()
-        {
-            throw new NotImplementedException();
-        }
-
         public TotalScores GetItem(int id)
         {
-            throw new NotImplementedException();
+            return db.TotalScores.Find(id);
         }
 
         public IEnumerable<TotalScores> GetList()
         {
-            throw new NotImplementedException();
+            return db.TotalScores;
         }
 
         public void Save()
         {
-            throw new NotImplementedException();
+            db.SaveChanges();
         }
 
         public void Update(TotalScores item)
         {
             throw new NotImplementedException();
+        }
+
+        private bool disposed = false;
+
+        public virtual void Dispose(bool disposing)
+        {
+            if (!this.disposed)
+            {
+                if (disposing)
+                {
+                    db.Dispose();
+                }
+            }
+            this.disposed = true;
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 }

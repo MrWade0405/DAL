@@ -4,8 +4,10 @@ using System.Text;
 
 namespace DAL.Repositories
 {
-    class LanguagesRepository : IRepository<Languages>
+    public class LanguagesRepository : IRepository<Languages>
     {
+        private LearningLanguagesContext db;
+
         public void Create(Languages item)
         {
             throw new NotImplementedException();
@@ -16,29 +18,44 @@ namespace DAL.Repositories
             throw new NotImplementedException();
         }
 
-        public void Dispose()
-        {
-            throw new NotImplementedException();
-        }
-
         public Languages GetItem(int id)
         {
-            throw new NotImplementedException();
+            return db.Languages.Find(id);
         }
 
         public IEnumerable<Languages> GetList()
         {
-            throw new NotImplementedException();
+            return db.Languages;
         }
 
         public void Save()
         {
-            throw new NotImplementedException();
+            db.SaveChanges();
         }
 
         public void Update(Languages item)
         {
             throw new NotImplementedException();
+        }
+
+        private bool disposed = false;
+
+        public virtual void Dispose(bool disposing)
+        {
+            if (!this.disposed)
+            {
+                if (disposing)
+                {
+                    db.Dispose();
+                }
+            }
+            this.disposed = true;
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 }

@@ -4,8 +4,10 @@ using System.Text;
 
 namespace DAL.Repositories
 {
-    class WordTranslationsRepository : IRepository<WordTranslations>
+    public class WordTranslationsRepository : IRepository<WordTranslations>
     {
+        private LearningLanguagesContext db;
+
         public void Create(WordTranslations item)
         {
             throw new NotImplementedException();
@@ -16,29 +18,44 @@ namespace DAL.Repositories
             throw new NotImplementedException();
         }
 
-        public void Dispose()
-        {
-            throw new NotImplementedException();
-        }
-
         public WordTranslations GetItem(int id)
         {
-            throw new NotImplementedException();
+            return db.WordTranslations.Find(id);
         }
 
         public IEnumerable<WordTranslations> GetList()
         {
-            throw new NotImplementedException();
+            return db.WordTranslations;
         }
 
         public void Save()
         {
-            throw new NotImplementedException();
+            db.SaveChanges();
         }
 
         public void Update(WordTranslations item)
         {
             throw new NotImplementedException();
+        }
+
+        private bool disposed = false;
+
+        public virtual void Dispose(bool disposing)
+        {
+            if (!this.disposed)
+            {
+                if (disposing)
+                {
+                    db.Dispose();
+                }
+            }
+            this.disposed = true;
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 }
